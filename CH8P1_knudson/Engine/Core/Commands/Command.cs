@@ -1,13 +1,4 @@
-﻿using Engine.Core.Combat;
-using Engine.Core.Creatures;
-using Engine.Core.Items;
-using Engine.Core.Items.Equipable;
-using Engine.Core.World;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Engine.Core.Creatures;
 
 namespace Engine.Core.Commands
 {
@@ -22,6 +13,7 @@ namespace Engine.Core.Commands
 
         public abstract CommandResult Execute();
 
+        //Remanant of the uglier but 'simpler' way:
             //switch(arguments.Type)
             //{
             //    case CommandType.Go:

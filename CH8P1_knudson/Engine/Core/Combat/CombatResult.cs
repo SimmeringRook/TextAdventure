@@ -1,13 +1,9 @@
 ﻿using Engine.Core.Creatures;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Engine.Core.Combat
 {
-    //Commit Test
     public class CombatResult
     {
         private Creature attacker;

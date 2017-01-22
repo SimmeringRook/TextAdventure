@@ -1,10 +1,6 @@
 ﻿using Engine.Core.Combat;
 using Engine.Core.Creatures;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Engine.Core.Commands.Executable
 {
@@ -17,12 +13,6 @@ namespace Engine.Core.Commands.Executable
                 GetMonsterInRoomByName(targetName);
         }
         
-        private void GetMonsterInRoomByName(string name)
-        {
-            foreach (Monster monster in player.CurrentRoom.MonstersInRoom)
-                if (monster.Name.ToLower().Equals(name.ToLower()))
-                    currentTarget = monster;
-        }
         public override CommandResult Execute()
         {
             List<CombatResult> combatResults = new List<CombatResult>();
@@ -42,6 +32,14 @@ namespace Engine.Core.Commands.Executable
             return new CommandResult(combatResults);
         }
 
+        #region Helper Functions
+        private void GetMonsterInRoomByName(string name)
+        {
+            foreach (Monster monster in player.CurrentRoom.MonstersInRoom)
+                if (monster.Name.ToLower().Equals(name.ToLower()))
+                    currentTarget = monster;
+        }
+
         private bool GetNextAliveMonsterInRoom(out Monster aliveMonster)
         {
             bool monstersStillAlive = true;
@@ -57,5 +55,6 @@ namespace Engine.Core.Commands.Executable
             return false;
 
         }
+        #endregion
     }
 }
