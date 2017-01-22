@@ -1,0 +1,5 @@
+D:\CSC 253\Chapter 8\CH8P1_knudson\Engine\bin\Debug\Engine.dll
+D:\CSC 253\Chapter 8\CH8P1_knudson\Engine\bin\Debug\Engine.pdb
+D:\CSC 253\Chapter 8\CH8P1_knudson\Engine\obj\Debug\Engine.csprojResolveAssemblyReference.cache
+D:\CSC 253\Chapter 8\CH8P1_knudson\Engine\obj\Debug\Engine.dll
+D:\CSC 253\Chapter 8\CH8P1_knudson\Engine\obj\Debug\Engine.pdb

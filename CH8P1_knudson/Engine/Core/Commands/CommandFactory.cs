@@ -15,9 +15,12 @@ namespace Engine.Core.Commands
         private static Player _player;
         public static ICommandable ParseUserInputIntoCommand(string[] arguments)
         {
+            //Convert the first string into a CommandType
             CommandType type = ParseStringToCommandType(arguments[0]);
+            //Ensure the factory has the latest instance of the player
             _player = World.World.Instance.CurrentPlayer;
 
+            //Build the correct command for the given type 
             switch (type)
             {
                 #region Player Environment Commands
@@ -31,17 +34,18 @@ namespace Engine.Core.Commands
                     return CreateLookCommand() as ICommandable;
 
                 case CommandType.Open:
-                    return CreateOpenCommand();
+                    return CreateOpenCommand() as ICommandable;
 
                 case CommandType.Attack:
                     string targetName = (arguments.Length > 1)
                         ? arguments[1]
                         : null;
-                    return CreateAttackCommand(targetName);
+                    return CreateAttackCommand(targetName) as ICommandable;
                 #endregion
+
                 #region Inventory Management Commands
                 case CommandType.Inventory:
-                    return CreateInventoryCommand();
+                    return CreateInventoryCommand() as ICommandable;
 
                 case CommandType.Take:
                 case CommandType.Get:
@@ -54,19 +58,20 @@ namespace Engine.Core.Commands
                     string itemToEquipName = (arguments.Length > 1)
                         ? arguments[1]
                         : null;
-                    return CreateEquipCommand(itemToEquipName);
+                    return CreateEquipCommand(itemToEquipName) as ICommandable;
 
                 case CommandType.Drop:
                     string itemToDropName = (arguments.Length > 1)
                         ? arguments[1]
                         : null;
-                    return CreateDropCommand(itemToDropName);
+                    return CreateDropCommand(itemToDropName) as ICommandable;
                 #endregion
+
                 #region Game Commands
                 case CommandType.Score:
-                    return CreateScoreCommand();
+                    return CreateScoreCommand() as ICommandable;
                 case CommandType.Quit:
-                    return CreateQuitCommand();
+                    return CreateQuitCommand() as ICommandable;
                 #endregion
             }
 

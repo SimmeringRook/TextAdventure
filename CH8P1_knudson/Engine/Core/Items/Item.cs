@@ -32,6 +32,7 @@ namespace Engine.Core.Items
             return EquipmentSlot;
         }
 
+        //TODO: This might need some refactoring
         public void Equip(Player player)
         {
             foreach (KeyValuePair<EquipmentSlot, Item> item in player.Equipment)
@@ -48,6 +49,7 @@ namespace Engine.Core.Items
             player.Equipment[this.EquipmentSlot] = this;
         }
 
+        //TODO: Is this function necessary, or is everything else already be done elsewhere?
         public void UnEquip(IItem itemToUnEquip, Player player)
         {
             //If the item is actually equipped, remove it

@@ -34,12 +34,14 @@ namespace Engine.Core.Creatures
 
         public CombatResult Attack(Creature target)
         {
+            //Initalize the combat recorder
             CombatResult results = new CombatResult(this, target);
-            Dice hitDice = new Creatures.Dice(20);
+            Dice hitDice = new Dice(20);
 
             int hitRoll = hitDice.Roll();
             results.LogHitOrMiss(hitRoll);
 
+            //If the attacker hit, roll for and deal damage
             if (hitRoll > 10)
             {
                 int damage = 0;
@@ -52,6 +54,7 @@ namespace Engine.Core.Creatures
                 target.TakeDamage(damage);
             }
             
+            //Return the logs for the 'turn' of combat
             return results;
         }
     }

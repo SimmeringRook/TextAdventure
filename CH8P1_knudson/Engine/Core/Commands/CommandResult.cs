@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace Engine.Core.Commands
 {
+    /// <summary>
+    /// This is a glorified data structure to handle accepting all the different possiblities foreach command
+    /// and act as an intermediary for the backend with commands being executed and the GUI for the user to know
+    /// what has occured.
+    /// </summary>
     public class CommandResult
     {
         public List<string> Dialog { get; private set; }

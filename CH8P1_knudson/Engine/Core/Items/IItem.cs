@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Engine.Core.Items
 {
+    /// <summary>
+    /// Used to facilitate dependency injection when dealing with Items and the player
+    /// </summary>
     public interface IItem
     {
         EquipmentSlot GetEquipmentSlot();

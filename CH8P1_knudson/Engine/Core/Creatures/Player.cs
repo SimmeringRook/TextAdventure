@@ -41,6 +41,11 @@ namespace Engine.Core.Creatures
             Inventory.Remove(item);
         }
 
+        /// <summary>
+        /// Check's the player's Currently Equipped items, to see if the item is actually equipped.
+        /// </summary>
+        /// <param name="itemToUnEquip"></param>
+        /// <returns></returns>
         public bool CheckIfItemIsEquipped(IItem itemToUnEquip)
         {
             Item itemToRemove = null;

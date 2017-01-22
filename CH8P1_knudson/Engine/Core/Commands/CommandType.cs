@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Engine.Core.Commands
 {
+    //Obsolete?
+    //TODO: Localize to the CommandFactory file?
     public enum CommandType
     {
         Go,

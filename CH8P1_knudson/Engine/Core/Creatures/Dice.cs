@@ -13,27 +13,21 @@ namespace Engine.Core.Creatures
 
         private Random rng { get; set; }
 
-        public Dice(int sides)
-        {
-            NumberOfSides = sides;
-            NumberOfDie = 1;
-            rng = new Random();
-        }
-
-        public Dice(int sides, int rngSeed)
-        {
-            NumberOfSides = sides;
-            NumberOfDie = 1;
-            rng = new Random(rngSeed);
-        }
-
-        public Dice(int sides, int rngSeed, int die)
+        public Dice(int sides, int die = 1, int rngSeed = 0)
         {
             NumberOfSides = sides;
             NumberOfDie = die;
-            rng = new Random(rngSeed);
+
+            if (rngSeed == 0)
+                rng = new Random();
+            else
+                rng = new Random(rngSeed);
         }
 
+        /// <summary>
+        /// Roll the die
+        /// </summary>
+        /// <returns></returns>
         public int Roll()
         {
             return rng.Next(1, NumberOfSides + 1);
