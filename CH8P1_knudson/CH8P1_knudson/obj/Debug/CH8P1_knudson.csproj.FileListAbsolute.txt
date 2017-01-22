@@ -7,3 +7,6 @@ D:\CSC 253\Chapter 8\CH8P1_knudson\CH8P1_knudson\obj\Debug\CH8P1_knudson.Propert
 D:\CSC 253\Chapter 8\CH8P1_knudson\CH8P1_knudson\obj\Debug\CH8P1_knudson.csproj.GenerateResource.Cache
 D:\CSC 253\Chapter 8\CH8P1_knudson\CH8P1_knudson\obj\Debug\CH8P1_knudson.exe
 D:\CSC 253\Chapter 8\CH8P1_knudson\CH8P1_knudson\obj\Debug\CH8P1_knudson.pdb
+D:\CSC 253\New folder\CH8P1_knudson\CH8P1_knudson\bin\Debug\CH8P1_knudson.exe.config
+D:\CSC 253\New folder\CH8P1_knudson\CH8P1_knudson\obj\Debug\CH8P1_knudson.exe
+D:\CSC 253\New folder\CH8P1_knudson\CH8P1_knudson\obj\Debug\CH8P1_knudson.pdb
