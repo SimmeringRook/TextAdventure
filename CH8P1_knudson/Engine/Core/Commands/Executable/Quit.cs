@@ -1,4 +1,5 @@
 ﻿using Engine.Core.Creatures;
+using Engine.Core.World;
 using System;
 
 namespace Engine.Core.Commands.Executable
@@ -12,10 +13,9 @@ namespace Engine.Core.Commands.Executable
 
         public override CommandResult Execute()
         {
-            CommandResult result = new CommandResult();
-
-            return result;
-            throw new NotImplementedException();
+            if (Instance.Save())
+                return new CommandResult("The game has sucessfully been saved.");
+            return new CommandResult("The game encountered an error while saving.");
         }
     }
 }

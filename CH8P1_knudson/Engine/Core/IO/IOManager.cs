@@ -41,6 +41,8 @@ namespace Engine.Core.IO
                 //Execute the command and past back the text to be displayed to the user
                 outputToBeDisplayed = commandToExecute.Execute().Dialog;
 
+            //if (outputToBeDisplayed.GetType() == typeof(Commands.Executable.Quit))
+            // call quit on form
         }
     }
 }

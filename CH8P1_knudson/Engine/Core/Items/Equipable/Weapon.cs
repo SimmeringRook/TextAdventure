@@ -6,9 +6,11 @@ namespace Engine.Core.Items.Equipable
     {
         public EquipmentSlot EquipmentSlot { get { return EquipmentSlot.MainHand; } }
         public double AttackModifier { get; private set; }
-        public Weapon(int id, string name, string description, double attackModifier = 0) : base(id, name, description)
+        public double ParryModifier { get; private set; }
+        public Weapon(int id, string name, string description, double attackModifier = 0, double parryModifer = 0) : base(id, name, description)
         {
             AttackModifier = attackModifier;
+            ParryModifier = parryModifer;
         }
 
         public EquipmentSlot GetEquipmentSlot()

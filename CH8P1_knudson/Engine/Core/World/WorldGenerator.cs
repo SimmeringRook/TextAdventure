@@ -34,7 +34,7 @@ namespace Engine.Core.World
                     currentRoom = rooms[rngHelper.Next(0, rooms.Count)];
 
                 //Decide if the room will contain loot on the floor
-                if (rngHelper.Next(0, 4) % 2 == 0)
+                if (rngHelper.Next(1, 5) % 2 == 0)
                     currentRoom.LootInRoom.Add(Instance.MasterItemList[rngHelper.Next(0, Instance.MasterItemList.Count)]);
 
                 //Determine the number of Neighbors that currentRoom will have (minimum 1, max 4)
@@ -62,6 +62,12 @@ namespace Engine.Core.World
 
             return rooms;
         }
+
+        //private static Room CreateNewRoom(Room startingNeighbor = null)
+        //{
+        //    //Room newRoom = (startingNeighbor != null)? startingNeighbor :  ;
+
+        //}
 
         private static Direction ConvertIntToDirection(int i)
         {

@@ -20,7 +20,7 @@ namespace Engine.Core.Commands.Executable
 
             (player.Job as Creature).Inventory.Add(itemToLoot);
             player.CurrentRoom.LootInRoom.Remove(itemToLoot);
-            return new Commands.CommandResult("You pick up the [" + itemToLoot.Name + "]");
+            return new CommandResult("You pick up the [" + itemToLoot.Name + "]");
         }
     }
 }

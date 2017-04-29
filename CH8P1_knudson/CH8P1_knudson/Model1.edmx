@@ -1,0 +1,869 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AdventureDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Creature_Equipment">
+          <Key>
+            <PropertyRef Name="Seed" />
+            <PropertyRef Name="CreatureTemplateID" />
+            <PropertyRef Name="CreatureInstanceID" />
+          </Key>
+          <Property Name="Seed" Type="int" Nullable="false" />
+          <Property Name="CreatureTemplateID" Type="int" Nullable="false" />
+          <Property Name="CreatureInstanceID" Type="int" Nullable="false" />
+          <Property Name="Head_ItemID" Type="int" Nullable="false" />
+          <Property Name="Chest_ItemID" Type="int" Nullable="false" />
+          <Property Name="Legs_ItemID" Type="int" Nullable="false" />
+          <Property Name="MainHand_ItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Creature_Inventory">
+          <Key>
+            <PropertyRef Name="Seed" />
+            <PropertyRef Name="CreatureTemplateID" />
+            <PropertyRef Name="CreatureInstanceID" />
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="Seed" Type="int" Nullable="false" />
+          <Property Name="CreatureTemplateID" Type="int" Nullable="false" />
+          <Property Name="CreatureInstanceID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Creatures">
+          <Key>
+            <PropertyRef Name="Seed" />
+            <PropertyRef Name="CreatureTemplateID" />
+            <PropertyRef Name="CreatureInstanceID" />
+          </Key>
+          <Property Name="Seed" Type="int" Nullable="false" />
+          <Property Name="CreatureTemplateID" Type="int" Nullable="false" />
+          <Property Name="CreatureInstanceID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsAlive" Type="bit" Nullable="false" />
+          <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="RoomID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CreatureTemplates">
+          <Key>
+            <PropertyRef Name="CreatureTemplateID" />
+          </Key>
+          <Property Name="CreatureTemplateID" Type="int" Nullable="false" />
+          <Property Name="JobName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item_Armor">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="EvasionModifer" Type="float" Nullable="false" />
+          <Property Name="BlockModifer" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item_Weapon">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="AttackModifer" Type="float" Nullable="false" />
+          <Property Name="ParryModifer" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jobs">
+          <Key>
+            <PropertyRef Name="JobName" />
+          </Key>
+          <Property Name="JobName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rooms">
+          <Key>
+            <PropertyRef Name="Seed" />
+            <PropertyRef Name="RoomID" />
+          </Key>
+          <Property Name="Seed" Type="int" Nullable="false" />
+          <Property Name="RoomID" Type="int" Nullable="false" />
+          <Property Name="North" Type="int" Nullable="false" />
+          <Property Name="East" Type="int" Nullable="false" />
+          <Property Name="South" Type="int" Nullable="false" />
+          <Property Name="West" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Worlds">
+          <Key>
+            <PropertyRef Name="Seed" />
+          </Key>
+          <Property Name="Seed" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Creature___Chest__2DE6D218">
+          <End Role="Item_Armor" Type="Self.Item_Armor" Multiplicity="1" />
+          <End Role="Creature_Equipment" Type="Self.Creature_Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_Armor">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Creature_Equipment">
+              <PropertyRef Name="Chest_ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature___Head___2CF2ADDF">
+          <End Role="Item_Armor" Type="Self.Item_Armor" Multiplicity="1" />
+          <End Role="Creature_Equipment" Type="Self.Creature_Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_Armor">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Creature_Equipment">
+              <PropertyRef Name="Head_ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature___ItemI__30C33EC3">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="Creature_Inventory" Type="Self.Creature_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Creature_Inventory">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature___Legs___2EDAF651">
+          <End Role="Item_Armor" Type="Self.Item_Armor" Multiplicity="1" />
+          <End Role="Creature_Equipment" Type="Self.Creature_Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_Armor">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Creature_Equipment">
+              <PropertyRef Name="Legs_ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature___MainH__2FCF1A8A">
+          <End Role="Item_Weapon" Type="Self.Item_Weapon" Multiplicity="1" />
+          <End Role="Creature_Equipment" Type="Self.Creature_Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_Weapon">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Creature_Equipment">
+              <PropertyRef Name="MainHand_ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature_Equipme__2BFE89A6">
+          <End Role="Creatures" Type="Self.Creatures" Multiplicity="1" />
+          <End Role="Creature_Equipment" Type="Self.Creature_Equipment" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Creatures">
+              <PropertyRef Name="Seed" />
+              <PropertyRef Name="CreatureTemplateID" />
+              <PropertyRef Name="CreatureInstanceID" />
+            </Principal>
+            <Dependent Role="Creature_Equipment">
+              <PropertyRef Name="Seed" />
+              <PropertyRef Name="CreatureTemplateID" />
+              <PropertyRef Name="CreatureInstanceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature_Invento__31B762FC">
+          <End Role="Creatures" Type="Self.Creatures" Multiplicity="1" />
+          <End Role="Creature_Inventory" Type="Self.Creature_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Creatures">
+              <PropertyRef Name="Seed" />
+              <PropertyRef Name="CreatureTemplateID" />
+              <PropertyRef Name="CreatureInstanceID" />
+            </Principal>
+            <Dependent Role="Creature_Inventory">
+              <PropertyRef Name="Seed" />
+              <PropertyRef Name="CreatureTemplateID" />
+              <PropertyRef Name="CreatureInstanceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creatures__3A4CA8FD">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="1" />
+          <End Role="Creatures" Type="Self.Creatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="Seed" />
+              <PropertyRef Name="RoomID" />
+            </Principal>
+            <Dependent Role="Creatures">
+              <PropertyRef Name="Seed" />
+              <PropertyRef Name="RoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creatures__Creat__0F624AF8">
+          <End Role="CreatureTemplates" Type="Self.CreatureTemplates" Multiplicity="1" />
+          <End Role="Creatures" Type="Self.Creatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreatureTemplates">
+              <PropertyRef Name="CreatureTemplateID" />
+            </Principal>
+            <Dependent Role="Creatures">
+              <PropertyRef Name="CreatureTemplateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creatures__Seed__0E6E26BF">
+          <End Role="Worlds" Type="Self.Worlds" Multiplicity="1" />
+          <End Role="Creatures" Type="Self.Creatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worlds">
+              <PropertyRef Name="Seed" />
+            </Principal>
+            <Dependent Role="Creatures">
+              <PropertyRef Name="Seed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CreatureT__JobNa__286302EC">
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="1" />
+          <End Role="CreatureTemplates" Type="Self.CreatureTemplates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="JobName" />
+            </Principal>
+            <Dependent Role="CreatureTemplates">
+              <PropertyRef Name="JobName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item_Armo__ItemI__619B8048">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="Item_Armor" Type="Self.Item_Armor" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Item_Armor">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item_Weap__ItemI__5CD6CB2B">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="Item_Weapon" Type="Self.Item_Weapon" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Item_Weapon">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rooms__Seed__38996AB5">
+          <End Role="Worlds" Type="Self.Worlds" Multiplicity="1" />
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worlds">
+              <PropertyRef Name="Seed" />
+            </Principal>
+            <Dependent Role="Rooms">
+              <PropertyRef Name="Seed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AdventureDatabaseModelStoreContainer">
+          <EntitySet Name="Creature_Equipment" EntityType="Self.Creature_Equipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Creature_Inventory" EntityType="Self.Creature_Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Creatures" EntityType="Self.Creatures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreatureTemplates" EntityType="Self.CreatureTemplates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item_Armor" EntityType="Self.Item_Armor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item_Weapon" EntityType="Self.Item_Weapon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Worlds" EntityType="Self.Worlds" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Creature___Chest__2DE6D218" Association="Self.FK__Creature___Chest__2DE6D218">
+            <End Role="Item_Armor" EntitySet="Item_Armor" />
+            <End Role="Creature_Equipment" EntitySet="Creature_Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature___Head___2CF2ADDF" Association="Self.FK__Creature___Head___2CF2ADDF">
+            <End Role="Item_Armor" EntitySet="Item_Armor" />
+            <End Role="Creature_Equipment" EntitySet="Creature_Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature___ItemI__30C33EC3" Association="Self.FK__Creature___ItemI__30C33EC3">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Creature_Inventory" EntitySet="Creature_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature___Legs___2EDAF651" Association="Self.FK__Creature___Legs___2EDAF651">
+            <End Role="Item_Armor" EntitySet="Item_Armor" />
+            <End Role="Creature_Equipment" EntitySet="Creature_Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature___MainH__2FCF1A8A" Association="Self.FK__Creature___MainH__2FCF1A8A">
+            <End Role="Item_Weapon" EntitySet="Item_Weapon" />
+            <End Role="Creature_Equipment" EntitySet="Creature_Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature_Equipme__2BFE89A6" Association="Self.FK__Creature_Equipme__2BFE89A6">
+            <End Role="Creatures" EntitySet="Creatures" />
+            <End Role="Creature_Equipment" EntitySet="Creature_Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature_Invento__31B762FC" Association="Self.FK__Creature_Invento__31B762FC">
+            <End Role="Creatures" EntitySet="Creatures" />
+            <End Role="Creature_Inventory" EntitySet="Creature_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creatures__3A4CA8FD" Association="Self.FK__Creatures__3A4CA8FD">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="Creatures" EntitySet="Creatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creatures__Creat__0F624AF8" Association="Self.FK__Creatures__Creat__0F624AF8">
+            <End Role="CreatureTemplates" EntitySet="CreatureTemplates" />
+            <End Role="Creatures" EntitySet="Creatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creatures__Seed__0E6E26BF" Association="Self.FK__Creatures__Seed__0E6E26BF">
+            <End Role="Worlds" EntitySet="Worlds" />
+            <End Role="Creatures" EntitySet="Creatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CreatureT__JobNa__286302EC" Association="Self.FK__CreatureT__JobNa__286302EC">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="CreatureTemplates" EntitySet="CreatureTemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item_Armo__ItemI__619B8048" Association="Self.FK__Item_Armo__ItemI__619B8048">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Item_Armor" EntitySet="Item_Armor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item_Weap__ItemI__5CD6CB2B" Association="Self.FK__Item_Weap__ItemI__5CD6CB2B">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Item_Weapon" EntitySet="Item_Weapon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rooms__Seed__38996AB5" Association="Self.FK__Rooms__Seed__38996AB5">
+            <End Role="Worlds" EntitySet="Worlds" />
+            <End Role="Rooms" EntitySet="Rooms" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AdventureDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Creature_Equipment">
+          <Key>
+            <PropertyRef Name="CreatureInstanceID" />
+            <PropertyRef Name="Seed" />
+            <PropertyRef Name="CreatureTemplateID" />
+          </Key>
+          <Property Name="CreatureInstanceID" Type="Int32" Nullable="false" />
+          <Property Name="Head_ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Chest_ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Legs_ItemID" Type="Int32" Nullable="false" />
+          <Property Name="MainHand_ItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Item_Armor" Relationship="AdventureDatabaseModel.FK__Creature___Chest__6EF57B66" FromRole="Creature_Equipment" ToRole="Item_Armor" />
+          <NavigationProperty Name="Item_Armor1" Relationship="AdventureDatabaseModel.FK__Creature___Head___6E01572D" FromRole="Creature_Equipment" ToRole="Item_Armor" />
+          <NavigationProperty Name="Item_Armor2" Relationship="AdventureDatabaseModel.FK__Creature___Legs___6FE99F9F" FromRole="Creature_Equipment" ToRole="Item_Armor" />
+          <NavigationProperty Name="Item_Weapon" Relationship="AdventureDatabaseModel.FK__Creature___MainH__70DDC3D8" FromRole="Creature_Equipment" ToRole="Item_Weapon" />
+          <Property Name="Seed" Type="Int32" Nullable="false" />
+          <Property Name="CreatureTemplateID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Creatures" Relationship="AdventureDatabaseModel.FK__Creature_Equipme__2BFE89A6" FromRole="Creature_Equipment" ToRole="Creatures" />
+        </EntityType>
+        <EntityType Name="Creature_Inventory">
+          <Key>
+            <PropertyRef Name="CreatureInstanceID" />
+            <PropertyRef Name="ItemID" />
+            <PropertyRef Name="Seed" />
+            <PropertyRef Name="CreatureTemplateID" />
+          </Key>
+          <Property Name="CreatureInstanceID" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Seed" Type="Int32" Nullable="false" />
+          <Property Name="CreatureTemplateID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="AdventureDatabaseModel.FK__Creature___ItemI__0A9D95DB" FromRole="Creature_Inventory" ToRole="Items" />
+          <NavigationProperty Name="Worlds" Relationship="AdventureDatabaseModel.FK__Creature_I__Seed__0C85DE4D" FromRole="Creature_Inventory" ToRole="Worlds" />
+          <NavigationProperty Name="Creatures" Relationship="AdventureDatabaseModel.FK__Creature_Invento__31B762FC" FromRole="Creature_Inventory" ToRole="Creatures" />
+        </EntityType>
+        <EntityType Name="Creatures">
+          <Key>
+            <PropertyRef Name="Seed" />
+            <PropertyRef Name="CreatureTemplateID" />
+            <PropertyRef Name="CreatureInstanceID" />
+          </Key>
+          <Property Name="Seed" Type="Int32" Nullable="false" />
+          <Property Name="CreatureTemplateID" Type="Int32" Nullable="false" />
+          <Property Name="CreatureInstanceID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsAlive" Type="Boolean" Nullable="false" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CreatureTemplates" Relationship="Self.FK__Creatures__Creat__46E78A0C" FromRole="Creatures" ToRole="CreatureTemplates" />
+          <NavigationProperty Name="Worlds" Relationship="Self.FK__Creatures__Seed__45F365D3" FromRole="Creatures" ToRole="Worlds" />
+          <NavigationProperty Name="Creature_Equipment" Relationship="AdventureDatabaseModel.FK__Creature_Equipme__2BFE89A6" FromRole="Creatures" ToRole="Creature_Equipment" />
+          <NavigationProperty Name="Creature_Inventory" Relationship="AdventureDatabaseModel.FK__Creature_Invento__31B762FC" FromRole="Creatures" ToRole="Creature_Inventory" />
+          <Property Name="RoomID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rooms" Relationship="AdventureDatabaseModel.FK__Creatures__3A4CA8FD" FromRole="Creatures" ToRole="Rooms" />
+        </EntityType>
+        <EntityType Name="CreatureTemplates">
+          <Key>
+            <PropertyRef Name="CreatureTemplateID" />
+          </Key>
+          <Property Name="CreatureTemplateID" Type="Int32" Nullable="false" />
+          <Property Name="JobName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Creatures" Relationship="Self.FK__Creatures__Creat__46E78A0C" FromRole="CreatureTemplates" ToRole="Creatures" />
+          <NavigationProperty Name="Jobs" Relationship="Self.FK__CreatureT__JobNa__286302EC" FromRole="CreatureTemplates" ToRole="Jobs" />
+        </EntityType>
+        <EntityType Name="Item_Armor">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="EvasionModifer" Type="Double" Nullable="false" />
+          <Property Name="BlockModifer" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Item_Armo__ItemI__619B8048" FromRole="Item_Armor" ToRole="Items" />
+          <NavigationProperty Name="Creature_Equipment" Relationship="AdventureDatabaseModel.FK__Creature___Chest__6EF57B66" FromRole="Item_Armor" ToRole="Creature_Equipment" />
+          <NavigationProperty Name="Creature_Equipment1" Relationship="AdventureDatabaseModel.FK__Creature___Head___6E01572D" FromRole="Item_Armor" ToRole="Creature_Equipment" />
+          <NavigationProperty Name="Creature_Equipment2" Relationship="AdventureDatabaseModel.FK__Creature___Legs___6FE99F9F" FromRole="Item_Armor" ToRole="Creature_Equipment" />
+        </EntityType>
+        <EntityType Name="Item_Weapon">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="AttackModifer" Type="Double" Nullable="false" />
+          <Property Name="ParryModifer" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Item_Weap__ItemI__5CD6CB2B" FromRole="Item_Weapon" ToRole="Items" />
+          <NavigationProperty Name="Creature_Equipment" Relationship="AdventureDatabaseModel.FK__Creature___MainH__70DDC3D8" FromRole="Item_Weapon" ToRole="Creature_Equipment" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Item_Armor" Relationship="Self.FK__Item_Armo__ItemI__619B8048" FromRole="Items" ToRole="Item_Armor" />
+          <NavigationProperty Name="Item_Weapon" Relationship="Self.FK__Item_Weap__ItemI__5CD6CB2B" FromRole="Items" ToRole="Item_Weapon" />
+          <NavigationProperty Name="Creature_Inventory" Relationship="AdventureDatabaseModel.FK__Creature___ItemI__0A9D95DB" FromRole="Items" ToRole="Creature_Inventory" />
+        </EntityType>
+        <EntityType Name="Jobs">
+          <Key>
+            <PropertyRef Name="JobName" />
+          </Key>
+          <Property Name="JobName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CreatureTemplates" Relationship="Self.FK__CreatureT__JobNa__286302EC" FromRole="Jobs" ToRole="CreatureTemplates" />
+        </EntityType>
+        <EntityType Name="Rooms">
+          <Key>
+            <PropertyRef Name="Seed" />
+            <PropertyRef Name="RoomID" />
+          </Key>
+          <Property Name="Seed" Type="Int32" Nullable="false" />
+          <Property Name="RoomID" Type="Int32" Nullable="false" />
+          <Property Name="North" Type="Int32" Nullable="false" />
+          <Property Name="East" Type="Int32" Nullable="false" />
+          <Property Name="South" Type="Int32" Nullable="false" />
+          <Property Name="West" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Worlds" Relationship="Self.FK__Rooms__Seed__38996AB5" FromRole="Rooms" ToRole="Worlds" />
+          <NavigationProperty Name="Creatures" Relationship="AdventureDatabaseModel.FK__Creatures__3A4CA8FD" FromRole="Rooms" ToRole="Creatures" />
+        </EntityType>
+        <EntityType Name="Worlds">
+          <Key>
+            <PropertyRef Name="Seed" />
+          </Key>
+          <Property Name="Seed" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Creatures" Relationship="Self.FK__Creatures__Seed__45F365D3" FromRole="Worlds" ToRole="Creatures" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK__Rooms__Seed__38996AB5" FromRole="Worlds" ToRole="Rooms" />
+          <NavigationProperty Name="Creature_Inventory" Relationship="AdventureDatabaseModel.FK__Creature_I__Seed__0C85DE4D" FromRole="Worlds" ToRole="Creature_Inventory" />
+        </EntityType>
+        <Association Name="FK__Creatures__Creat__46E78A0C">
+          <End Role="CreatureTemplates" Type="Self.CreatureTemplates" Multiplicity="1" />
+          <End Role="Creatures" Type="Self.Creatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreatureTemplates">
+              <PropertyRef Name="CreatureTemplateID" />
+            </Principal>
+            <Dependent Role="Creatures">
+              <PropertyRef Name="CreatureTemplateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creatures__Seed__45F365D3">
+          <End Role="Worlds" Type="Self.Worlds" Multiplicity="1" />
+          <End Role="Creatures" Type="Self.Creatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worlds">
+              <PropertyRef Name="Seed" />
+            </Principal>
+            <Dependent Role="Creatures">
+              <PropertyRef Name="Seed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CreatureT__JobNa__286302EC">
+          <End Role="Jobs" Type="Self.Jobs" Multiplicity="1" />
+          <End Role="CreatureTemplates" Type="Self.CreatureTemplates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="JobName" />
+            </Principal>
+            <Dependent Role="CreatureTemplates">
+              <PropertyRef Name="JobName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item_Armo__ItemI__619B8048">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="Item_Armor" Type="Self.Item_Armor" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Item_Armor">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Item_Weap__ItemI__5CD6CB2B">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="Item_Weapon" Type="Self.Item_Weapon" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Item_Weapon">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rooms__Seed__38996AB5">
+          <End Role="Worlds" Type="Self.Worlds" Multiplicity="1" />
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worlds">
+              <PropertyRef Name="Seed" />
+            </Principal>
+            <Dependent Role="Rooms">
+              <PropertyRef Name="Seed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AdventureDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Creature_Equipment" EntityType="Self.Creature_Equipment" />
+          <EntitySet Name="Creature_Inventory" EntityType="Self.Creature_Inventory" />
+          <EntitySet Name="Creatures" EntityType="Self.Creatures" />
+          <EntitySet Name="CreatureTemplates" EntityType="Self.CreatureTemplates" />
+          <EntitySet Name="Item_Armor" EntityType="Self.Item_Armor" />
+          <EntitySet Name="Item_Weapon" EntityType="Self.Item_Weapon" />
+          <EntitySet Name="Items" EntityType="Self.Items" />
+          <EntitySet Name="Jobs" EntityType="Self.Jobs" />
+          <EntitySet Name="Rooms" EntityType="Self.Rooms" />
+          <EntitySet Name="Worlds" EntityType="Self.Worlds" />
+          <AssociationSet Name="FK__Creatures__Creat__46E78A0C" Association="Self.FK__Creatures__Creat__46E78A0C">
+            <End Role="CreatureTemplates" EntitySet="CreatureTemplates" />
+            <End Role="Creatures" EntitySet="Creatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creatures__Seed__45F365D3" Association="Self.FK__Creatures__Seed__45F365D3">
+            <End Role="Worlds" EntitySet="Worlds" />
+            <End Role="Creatures" EntitySet="Creatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CreatureT__JobNa__286302EC" Association="Self.FK__CreatureT__JobNa__286302EC">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="CreatureTemplates" EntitySet="CreatureTemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item_Armo__ItemI__619B8048" Association="Self.FK__Item_Armo__ItemI__619B8048">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Item_Armor" EntitySet="Item_Armor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Item_Weap__ItemI__5CD6CB2B" Association="Self.FK__Item_Weap__ItemI__5CD6CB2B">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Item_Weapon" EntitySet="Item_Weapon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rooms__Seed__38996AB5" Association="Self.FK__Rooms__Seed__38996AB5">
+            <End Role="Worlds" EntitySet="Worlds" />
+            <End Role="Rooms" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature___Chest__6EF57B66" Association="AdventureDatabaseModel.FK__Creature___Chest__6EF57B66">
+            <End Role="Item_Armor" EntitySet="Item_Armor" />
+            <End Role="Creature_Equipment" EntitySet="Creature_Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature___Head___6E01572D" Association="AdventureDatabaseModel.FK__Creature___Head___6E01572D">
+            <End Role="Item_Armor" EntitySet="Item_Armor" />
+            <End Role="Creature_Equipment" EntitySet="Creature_Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature___Legs___6FE99F9F" Association="AdventureDatabaseModel.FK__Creature___Legs___6FE99F9F">
+            <End Role="Item_Armor" EntitySet="Item_Armor" />
+            <End Role="Creature_Equipment" EntitySet="Creature_Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature___MainH__70DDC3D8" Association="AdventureDatabaseModel.FK__Creature___MainH__70DDC3D8">
+            <End Role="Item_Weapon" EntitySet="Item_Weapon" />
+            <End Role="Creature_Equipment" EntitySet="Creature_Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature___ItemI__0A9D95DB" Association="AdventureDatabaseModel.FK__Creature___ItemI__0A9D95DB">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Creature_Inventory" EntitySet="Creature_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature_I__Seed__0C85DE4D" Association="AdventureDatabaseModel.FK__Creature_I__Seed__0C85DE4D">
+            <End Role="Worlds" EntitySet="Worlds" />
+            <End Role="Creature_Inventory" EntitySet="Creature_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature_Equipme__2BFE89A6" Association="AdventureDatabaseModel.FK__Creature_Equipme__2BFE89A6">
+            <End Role="Creatures" EntitySet="Creatures" />
+            <End Role="Creature_Equipment" EntitySet="Creature_Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creature_Invento__31B762FC" Association="AdventureDatabaseModel.FK__Creature_Invento__31B762FC">
+            <End Role="Creatures" EntitySet="Creatures" />
+            <End Role="Creature_Inventory" EntitySet="Creature_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Creatures__3A4CA8FD" Association="AdventureDatabaseModel.FK__Creatures__3A4CA8FD">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="Creatures" EntitySet="Creatures" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK__Creature___Chest__6EF57B66">
+          <End Type="AdventureDatabaseModel.Item_Armor" Role="Item_Armor" Multiplicity="1" />
+          <End Type="AdventureDatabaseModel.Creature_Equipment" Role="Creature_Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_Armor">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Creature_Equipment">
+              <PropertyRef Name="Chest_ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature___Head___6E01572D">
+          <End Type="AdventureDatabaseModel.Item_Armor" Role="Item_Armor" Multiplicity="1" />
+          <End Type="AdventureDatabaseModel.Creature_Equipment" Role="Creature_Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_Armor">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Creature_Equipment">
+              <PropertyRef Name="Head_ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature___Legs___6FE99F9F">
+          <End Type="AdventureDatabaseModel.Item_Armor" Role="Item_Armor" Multiplicity="1" />
+          <End Type="AdventureDatabaseModel.Creature_Equipment" Role="Creature_Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_Armor">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Creature_Equipment">
+              <PropertyRef Name="Legs_ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature___MainH__70DDC3D8">
+          <End Type="AdventureDatabaseModel.Item_Weapon" Role="Item_Weapon" Multiplicity="1" />
+          <End Type="AdventureDatabaseModel.Creature_Equipment" Role="Creature_Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_Weapon">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Creature_Equipment">
+              <PropertyRef Name="MainHand_ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature___ItemI__0A9D95DB">
+          <End Type="AdventureDatabaseModel.Items" Role="Items" Multiplicity="1" />
+          <End Type="AdventureDatabaseModel.Creature_Inventory" Role="Creature_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="Creature_Inventory">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature_I__Seed__0C85DE4D">
+          <End Type="AdventureDatabaseModel.Worlds" Role="Worlds" Multiplicity="1" />
+          <End Type="AdventureDatabaseModel.Creature_Inventory" Role="Creature_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worlds">
+              <PropertyRef Name="Seed" />
+            </Principal>
+            <Dependent Role="Creature_Inventory">
+              <PropertyRef Name="Seed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature_Equipme__2BFE89A6">
+          <End Type="AdventureDatabaseModel.Creatures" Role="Creatures" Multiplicity="1" />
+          <End Type="AdventureDatabaseModel.Creature_Equipment" Role="Creature_Equipment" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Creatures">
+              <PropertyRef Name="Seed" />
+              <PropertyRef Name="CreatureTemplateID" />
+              <PropertyRef Name="CreatureInstanceID" />
+            </Principal>
+            <Dependent Role="Creature_Equipment">
+              <PropertyRef Name="Seed" />
+              <PropertyRef Name="CreatureTemplateID" />
+              <PropertyRef Name="CreatureInstanceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creature_Invento__31B762FC">
+          <End Type="AdventureDatabaseModel.Creatures" Role="Creatures" Multiplicity="1" />
+          <End Type="AdventureDatabaseModel.Creature_Inventory" Role="Creature_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Creatures">
+              <PropertyRef Name="Seed" />
+              <PropertyRef Name="CreatureTemplateID" />
+              <PropertyRef Name="CreatureInstanceID" />
+            </Principal>
+            <Dependent Role="Creature_Inventory">
+              <PropertyRef Name="Seed" />
+              <PropertyRef Name="CreatureTemplateID" />
+              <PropertyRef Name="CreatureInstanceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Creatures__3A4CA8FD">
+          <End Type="AdventureDatabaseModel.Rooms" Role="Rooms" Multiplicity="1" />
+          <End Type="AdventureDatabaseModel.Creatures" Role="Creatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="Seed" />
+              <PropertyRef Name="RoomID" />
+            </Principal>
+            <Dependent Role="Creatures">
+              <PropertyRef Name="Seed" />
+              <PropertyRef Name="RoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AdventureDatabaseModelStoreContainer" CdmEntityContainer="AdventureDatabaseEntities">
+          <EntitySetMapping Name="Creature_Equipment">
+            <EntityTypeMapping TypeName="AdventureDatabaseModel.Creature_Equipment">
+              <MappingFragment StoreEntitySet="Creature_Equipment">
+                <ScalarProperty Name="CreatureTemplateID" ColumnName="CreatureTemplateID" />
+                <ScalarProperty Name="Seed" ColumnName="Seed" />
+                <ScalarProperty Name="CreatureInstanceID" ColumnName="CreatureInstanceID" />
+                <ScalarProperty Name="Head_ItemID" ColumnName="Head_ItemID" />
+                <ScalarProperty Name="Chest_ItemID" ColumnName="Chest_ItemID" />
+                <ScalarProperty Name="Legs_ItemID" ColumnName="Legs_ItemID" />
+                <ScalarProperty Name="MainHand_ItemID" ColumnName="MainHand_ItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Creature_Inventory">
+            <EntityTypeMapping TypeName="AdventureDatabaseModel.Creature_Inventory">
+              <MappingFragment StoreEntitySet="Creature_Inventory">
+                <ScalarProperty Name="CreatureTemplateID" ColumnName="CreatureTemplateID" />
+                <ScalarProperty Name="Seed" ColumnName="Seed" />
+                <ScalarProperty Name="CreatureInstanceID" ColumnName="CreatureInstanceID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Creatures">
+            <EntityTypeMapping TypeName="AdventureDatabaseModel.Creatures">
+              <MappingFragment StoreEntitySet="Creatures">
+                <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+                <ScalarProperty Name="Seed" ColumnName="Seed" />
+                <ScalarProperty Name="CreatureTemplateID" ColumnName="CreatureTemplateID" />
+                <ScalarProperty Name="CreatureInstanceID" ColumnName="CreatureInstanceID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsAlive" ColumnName="IsAlive" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreatureTemplates">
+            <EntityTypeMapping TypeName="AdventureDatabaseModel.CreatureTemplates">
+              <MappingFragment StoreEntitySet="CreatureTemplates">
+                <ScalarProperty Name="CreatureTemplateID" ColumnName="CreatureTemplateID" />
+                <ScalarProperty Name="JobName" ColumnName="JobName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Item_Armor">
+            <EntityTypeMapping TypeName="AdventureDatabaseModel.Item_Armor">
+              <MappingFragment StoreEntitySet="Item_Armor">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="EvasionModifer" ColumnName="EvasionModifer" />
+                <ScalarProperty Name="BlockModifer" ColumnName="BlockModifer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Item_Weapon">
+            <EntityTypeMapping TypeName="AdventureDatabaseModel.Item_Weapon">
+              <MappingFragment StoreEntitySet="Item_Weapon">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="AttackModifer" ColumnName="AttackModifer" />
+                <ScalarProperty Name="ParryModifer" ColumnName="ParryModifer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="AdventureDatabaseModel.Items">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="AdventureDatabaseModel.Jobs">
+              <MappingFragment StoreEntitySet="Jobs">
+                <ScalarProperty Name="JobName" ColumnName="JobName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="AdventureDatabaseModel.Rooms">
+              <MappingFragment StoreEntitySet="Rooms">
+                <ScalarProperty Name="Seed" ColumnName="Seed" />
+                <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+                <ScalarProperty Name="North" ColumnName="North" />
+                <ScalarProperty Name="East" ColumnName="East" />
+                <ScalarProperty Name="South" ColumnName="South" />
+                <ScalarProperty Name="West" ColumnName="West" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Worlds">
+            <EntityTypeMapping TypeName="AdventureDatabaseModel.Worlds">
+              <MappingFragment StoreEntitySet="Worlds">
+                <ScalarProperty Name="Seed" ColumnName="Seed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
