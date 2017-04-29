@@ -59,28 +59,30 @@ namespace Engine.Core.Creatures.Jobs
 
         public CombatResult Attack(IAttackable target)
         {
-            CombatResult results = new CombatResult(this, target);
+            CombatResult results = new CombatResult(this as Creature, target as Creature);
 
             if(CombatMap.IsCriticalHit(this as IAttackable))
             {
                 double critDamage = this.Damage * 1.5;
                 target.TakeDamage(critDamage);
+                results.LogHit(critDamage, true);
             }
             else if (CombatMap.AttackEvaded(target))
             {
-
+                results.LogDefended(evaded: true);
             }
             else if (CombatMap.AttackBlocked(target))
             {
-
+                results.LogDefended(blocked: true);
             }
             else if (CombatMap.AttackParried(target))
             {
-
+                results.LogDefended(parried: true);
             }
             else
             {
                 target.TakeDamage(this.Damage);
+                results.LogHit(this.Damage);
             }
 
             return results;
