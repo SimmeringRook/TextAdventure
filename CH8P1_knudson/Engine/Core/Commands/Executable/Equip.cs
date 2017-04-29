@@ -1,20 +1,17 @@
 ﻿using Engine.Core.Creatures;
 using Engine.Core.Items;
 using Engine.Core.Items.Equipable;
+using Engine.Core.World;
+using System.Linq;
 
 namespace Engine.Core.Commands.Executable
 {
     public class Equip : Command
     {
-        private IItem itemToEquip;
+        private IEquipable itemToEquip;
         public Equip(Player player, string itemToEquipName) : base(player)
         {
-            itemToEquip = null;
-            foreach (IItem item in World.World.MasterItemList)
-            {
-                if (item.GetFormalName().ToLower().Equals(itemToEquipName.ToLower()))
-                    itemToEquip = item;
-            }
+            itemToEquip = Instance.MasterItemList.SingleOrDefault(item => item.Name.Equals(itemToEquipName)) as IEquipable;
         }
 
         public override CommandResult Execute()
@@ -22,12 +19,12 @@ namespace Engine.Core.Commands.Executable
             if (itemToEquip == null)
                 return new CommandResult("No item exists with that name.");
 
-            if (itemToEquip.GetEquipmentSlot() == EquipmentSlot.Empty)
+            if (itemToEquip.EquipmentSlot == EquipmentSlot.Empty)
                 return new Commands.CommandResult("That item is not equipable.");
 
-            itemToEquip.Equip(player);
-            player.RemoveItemFromInventory(itemToEquip);
-            return new Commands.CommandResult("You equip the [" + itemToEquip.GetFormalName() + "].");
+            itemToEquip.Equip(player.Job as Creature);
+            (player.Job as Creature).Inventory.Remove(itemToEquip as Item);
+            return new Commands.CommandResult("You equip the [" + (itemToEquip as Item).Name + "].");
         }
     }
 }

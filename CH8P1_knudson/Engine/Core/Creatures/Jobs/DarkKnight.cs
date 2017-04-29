@@ -1,10 +1,11 @@
 ﻿using Engine.Core.Combat;
+using Engine.Core.Items.Equipable;
 
 namespace Engine.Core.Creatures.Jobs
 {
     public class DarkKnight : Creature, IAttackable
     {
-        public int Score { get; set; }
+
         #region Stats
         private double _MainStat { get { return Vitality; } } //Allows me to easily tweak modifiers based off the job's main stat
         public double CurrentHP { get; private set; }
@@ -15,15 +16,54 @@ namespace Engine.Core.Creatures.Jobs
         #endregion
 
         #region Combat Modifiers
-        public double Damage { get { return JobModifiedStat(BaseDamage); } }
+        public double Damage
+        {
+            get
+            {
+                return JobModifiedStat(BaseDamage) + ((Equipment[EquipmentSlot.MainHand] as Weapon).AttackModifier * Level);
+            }
+        }
         public double Speed { get { return JobModifiedStat(BaseSpeed, 200); } }
         public double CritChance { get { return JobModifiedStat(BaseCritChance, 200); } }
         #endregion
 
         #region Defense Modifiers
-        public double Evasion { get { return JobModifiedStat(BaseEvasion, 1000); } }
-        public double Parry { get { return JobModifiedStat(BaseParry, 100); } }
-        public double Block { get { return JobModifiedStat(BaseBlock, 200); } }
+        public double Evasion { get { return JobModifiedStat(BaseEvasion, 1000) + _BonusEvasionFromEquipment; } }
+        private double _BonusEvasionFromEquipment
+        {
+            get
+            {
+                double evasion = 0.0;
+                foreach(var kvp in Equipment)
+                    if (kvp.Value != null)
+                        evasion += (kvp.Value as Armor).EvasionModifier;
+                return evasion;
+            }
+        }
+        public double Parry { get { return JobModifiedStat(BaseParry, 100) + _BonusParryFromEquipment; } }
+        private double _BonusParryFromEquipment
+        {
+            get
+            {
+                double parry = 0.0;
+                foreach (var kvp in Equipment)
+                    if (kvp.Value != null)
+                        parry += (kvp.Value as Armor).ParryModifier;
+                return parry;
+            }
+        }
+        public double Block { get { return JobModifiedStat(BaseBlock, 200) + _BonusBlockFromEquipment; } }
+        private double _BonusBlockFromEquipment
+        {
+            get
+            {
+                double block = 0.0;
+                foreach (var kvp in Equipment)
+                    if (kvp.Value != null)
+                        block += (kvp.Value as Armor).BlockModifier;
+                return block;
+            }
+        }
         #endregion
 
         private double JobModifiedStat(double baseStat, double jobModifier = 100)
@@ -43,7 +83,7 @@ namespace Engine.Core.Creatures.Jobs
             CurrentHP = MaxHP;
         }
 
-        public new bool IsAlive()
+        public bool IsAlive()
         {
             return (CurrentHP > 0);
         }

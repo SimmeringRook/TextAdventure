@@ -10,7 +10,7 @@ namespace Engine.Core.Commands.Executable
     public class Attack : Command
     {
         private IAttackable currentTarget = null;
-        public Attack(IAttackable player, string targetName) : base(player)
+        public Attack(Player player, string targetName) : base(player)
         {
             if (!string.IsNullOrWhiteSpace(targetName))
                 GetMonsterInRoomByName(targetName);
@@ -27,7 +27,7 @@ namespace Engine.Core.Commands.Executable
             
             foreach (IAttackable attacker in actionOrder)
             {
-                IAttackable defender = (attacker == player) ? currentTarget : player;
+                IAttackable defender = (attacker == player.Job) ? currentTarget : player.Job;
                 if (attacker.IsAlive())
                     combatResults.Add(attacker.Attack(defender));
 
@@ -46,9 +46,9 @@ namespace Engine.Core.Commands.Executable
         private List<IAttackable> GetActionOrder()
         {
             List<IAttackable> turnOrder = new List<IAttackable>();
-            int numberOfActions = (int)Math.Ceiling(player.Speed / 10);
+            int numberOfActions = (int)Math.Ceiling(player.Job.Speed / 10);
             for (int i = 0; i < numberOfActions; i++)
-                turnOrder.Add(player);
+                turnOrder.Add(player.Job);
 
             numberOfActions = (int)Math.Ceiling(currentTarget.Speed / 10);
             for (int i = 0; i < numberOfActions; i++)
@@ -60,7 +60,7 @@ namespace Engine.Core.Commands.Executable
         }
         private void GetMonsterInRoomByName(string name)
         {
-            foreach (IAttackable monster in (player as Player).CurrentRoom.MonstersInRoom)
+            foreach (IAttackable monster in player.CurrentRoom.MonstersInRoom)
             {
                 Creature monsterAsCreature = monster as Creature;
                 if (monsterAsCreature.Name.ToLower().Equals(name.ToLower()))
@@ -70,7 +70,7 @@ namespace Engine.Core.Commands.Executable
 
         private bool GetNextAliveMonsterInRoom(out IAttackable aliveMonster)
         {
-            foreach (IAttackable monster in (player as Player).CurrentRoom.MonstersInRoom)
+            foreach (IAttackable monster in player.CurrentRoom.MonstersInRoom)
             {
                 if (monster.IsAlive())
                 {

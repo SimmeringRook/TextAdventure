@@ -5,8 +5,8 @@ namespace Engine.Core.Commands.Executable
 {
     public class Drop : Command
     {
-        private IItem itemToDrop;
-        public Drop(Player player, IItem itemToDrop) : base(player)
+        private Item itemToDrop;
+        public Drop(Player player, Item itemToDrop) : base(player)
         {
             this.itemToDrop = itemToDrop;
         }
@@ -14,11 +14,11 @@ namespace Engine.Core.Commands.Executable
         public override CommandResult Execute()
         {
             if (itemToDrop == null)
-                return new CommandResult();
+                return new CommandResult("You don't have any [" + itemToDrop.Name + "].");
 
-            player.CurrentRoom.DropItemInRoom(itemToDrop);
-            player.RemoveItemFromInventory(itemToDrop);
-            return new CommandResult("You drop the [" + itemToDrop.GetFormalName() + "] onto the floor.");
+            player.CurrentRoom.LootInRoom.Add(itemToDrop);
+            (player.Job as Creature).Inventory.Remove(itemToDrop);
+            return new CommandResult("You drop the [" + itemToDrop.Name + "] onto the floor.");
         }
     }
 }

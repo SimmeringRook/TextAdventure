@@ -4,6 +4,7 @@ using Engine.Core.Items;
 using Engine.Core.World;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine.Core.Commands
 {
@@ -15,7 +16,7 @@ namespace Engine.Core.Commands
             //Convert the first string into a CommandType
             CommandType type = ParseStringToCommandType(arguments[0]);
             //Ensure the factory has the latest instance of the player
-            _player = World.World.Instance.CurrentPlayer;
+            _player = Instance.CurrentPlayer;
 
             //Build the correct command for the given type 
             switch (type)
@@ -193,19 +194,8 @@ namespace Engine.Core.Commands
         #region Drop Command
         private static Drop CreateDropCommand(string itemName)
         {
-            IItem itemToDrop = GetItemToDrop(itemName);
+            Item itemToDrop = Instance.MasterItemList.SingleOrDefault(item => item.Name.Equals(itemName));
             return new Drop(_player, itemToDrop);
-        }
-
-        private static IItem GetItemToDrop(string itemName)
-        {
-            IItem drop = null;
-            foreach (IItem item in World.World.MasterItemList)
-            {
-                if (item.GetFormalName().ToLower().Equals(itemName.ToLower()))
-                    drop = item;
-            }
-            return drop;
         }
         #endregion
 
@@ -231,7 +221,5 @@ namespace Engine.Core.Commands
         #endregion
 
         #endregion
-
-
     }
 }

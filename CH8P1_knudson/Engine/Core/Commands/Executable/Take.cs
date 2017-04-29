@@ -1,5 +1,6 @@
 ﻿using Engine.Core.Creatures;
 using Engine.Core.Items;
+using System.Linq;
 
 namespace Engine.Core.Commands.Executable
 {
@@ -13,13 +14,13 @@ namespace Engine.Core.Commands.Executable
 
         public override CommandResult Execute()
         {
-            IItem itemToLoot = player.CurrentRoom.GetLootInRoom(itemToLootName);
+            Item itemToLoot = player.CurrentRoom.LootInRoom.SingleOrDefault(item => item.Name.Equals(itemToLootName));
             if (itemToLoot == null)
                 return new CommandResult("There is no [" + itemToLootName + "] in this room.");
 
-            player.Inventory.Add(itemToLoot);
-            player.CurrentRoom.LootItem(itemToLoot);
-            return new Commands.CommandResult("You pick up the [" + itemToLootName + "]");
+            (player.Job as Creature).Inventory.Add(itemToLoot);
+            player.CurrentRoom.LootInRoom.Remove(itemToLoot);
+            return new Commands.CommandResult("You pick up the [" + itemToLoot.Name + "]");
         }
     }
 }

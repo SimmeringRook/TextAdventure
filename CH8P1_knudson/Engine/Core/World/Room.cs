@@ -9,10 +9,10 @@ namespace Engine.Core.World
         public string Description { get; private set; }
         public List<IAttackable> MonstersInRoom { get; private set; }
         private Dictionary<Direction, Room> neighbors { get; set; }
-        public List<IItem> LootInRoom { get; private set; }
+        public List<Item> LootInRoom { get; private set; }
         public Room()
         {
-            this.LootInRoom = new List<IItem>();
+            this.LootInRoom = new List<Item>();
             neighbors = new Dictionary<Direction, Room>();
         }
 
@@ -24,27 +24,6 @@ namespace Engine.Core.World
         public void AssignNeighbor(Room neighbor, Direction direction)
         {
             neighbors.Add(direction, neighbor);
-        }
-
-        public IItem GetLootInRoom(string itemName)
-        {
-            IItem loot = null;
-            foreach (IItem item in LootInRoom)
-            {
-                if (itemName.ToLower().Equals(item.GetFormalName().ToLower()))
-                    loot = item;
-            }
-            return loot;
-        }
-
-        public void DropItemInRoom(IItem droppedItem)
-        {
-            LootInRoom.Add(droppedItem);
-        }
-
-        public void LootItem(IItem lootedItem)
-        {
-            LootInRoom.Remove(lootedItem);
         }
     }
 }

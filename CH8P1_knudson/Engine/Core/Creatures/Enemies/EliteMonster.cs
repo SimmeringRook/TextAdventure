@@ -86,7 +86,7 @@ namespace Engine.Core.Creatures.Enemies
             CurrentHP -= MaxHP;
         }
 
-        public override bool IsAlive()
+        public bool IsAlive()
         {
             return (CurrentHP > 0);
         }

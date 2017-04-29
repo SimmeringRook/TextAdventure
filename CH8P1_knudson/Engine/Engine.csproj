@@ -63,12 +63,14 @@
     <Compile Include="Core\Creatures\Enemies\EliteMonster.cs" />
     <Compile Include="Core\Creatures\Enemies\Monster.cs" />
     <Compile Include="Core\Creatures\IAttackable.cs" />
-    <Compile Include="Core\Creatures\IKillable.cs" />
     <Compile Include="Core\Creatures\Jobs\DarkKnight.cs" />
     <Compile Include="Core\Creatures\Player.cs" />
     <Compile Include="Core\IO\IOManager.cs" />
+    <Compile Include="Core\Items\Equipable\Armor.cs" />
     <Compile Include="Core\Items\Equipable\EquipmentSlot.cs" />
-    <Compile Include="Core\Items\IItem.cs" />
+    <Compile Include="Core\Items\Equipable\HeadArmor.cs" />
+    <Compile Include="Core\Items\Equipable\IEquipable.cs" />
+    <Compile Include="Core\Items\Equipable\Weapon.cs" />
     <Compile Include="Core\Items\Item.cs" />
     <Compile Include="Core\World\Direction.cs" />
     <Compile Include="Core\World\Room.cs" />

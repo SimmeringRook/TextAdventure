@@ -5,19 +5,19 @@ namespace Engine.Core.World
 {
     public static class WorldGenerator
     {
-        public static World CreateNewWorld()
+        public static void CreateNewWorld()
         {
-            World worldBeingBuilt = new World();
-            World.Intialize();
+            Instance.Intialize();
 
-            List<Room> rooms = GenerateRooms(worldBeingBuilt);
-            worldBeingBuilt.AssignRoomsToWorld(rooms);
+            foreach (Room room in GenerateRooms())
+            {
+                Instance.Rooms.Add(room);
+            }
 
-            return worldBeingBuilt;
         }
 
         #region Room Generation
-        private static List<Room> GenerateRooms(World worldBeingBuilt)
+        private static List<Room> GenerateRooms()
         {
             List<Room> rooms = new List<Room>();
             Random rngHelper = new Random();
@@ -35,7 +35,7 @@ namespace Engine.Core.World
 
                 //Decide if the room will contain loot on the floor
                 if (rngHelper.Next(0, 4) % 2 == 0)
-                    currentRoom.DropItemInRoom(World.MasterItemList[rngHelper.Next(0, World.MasterItemList.Count)]);
+                    currentRoom.LootInRoom.Add(Instance.MasterItemList[rngHelper.Next(0, Instance.MasterItemList.Count)]);
 
                 //Determine the number of Neighbors that currentRoom will have (minimum 1, max 4)
                 int numberOfNeighbors = rngHelper.Next(1, 5);
@@ -48,7 +48,7 @@ namespace Engine.Core.World
 
                     //Determine neighboringRoom's chance at having loot - probabilty is 2 out of 5
                     if (rngHelper.Next(0, 10) <= 3)
-                        neighboringRoom.DropItemInRoom(World.MasterItemList[rngHelper.Next(0, World.MasterItemList.Count)]);
+                        neighboringRoom.LootInRoom.Add(Instance.MasterItemList[rngHelper.Next(0, Instance.MasterItemList.Count)]);
 
                     //Link rooms to eachother
                     currentRoom.AssignNeighbor(neighboringRoom, connectionToNeighbor);

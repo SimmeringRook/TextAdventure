@@ -16,30 +16,31 @@ namespace Engine.Core.Commands.Executable
             return new CommandResult(CreateShortInventoryList());
         }
 
+        //TODO Refactor?
         private List<string> CreateShortInventoryList()
         {
-            Dictionary<IItem, int> shortInventory = new Dictionary<Items.IItem, int>();
+            Dictionary<Item, int> shortInventory = new Dictionary<Item, int>();
 
-            foreach (IItem droppable in player.Inventory)
+            foreach (Item item in (player.Job as Creature).Inventory)
             {
-                if (shortInventory.ContainsKey(droppable))
+                if (shortInventory.ContainsKey(item))
                 {
-                    shortInventory[droppable] += 1;
+                    shortInventory[item] += 1;
                 }
                 else
                 {
-                    shortInventory.Add(droppable, 1);
+                    shortInventory.Add(item, 1);
                 }
             }
 
             List<string> itemsByCount = new List<string>()
             {
-                "You have [" + player.Inventory.Count + "] items in your bag:"
+                "You have [" + (player.Job as Creature).Inventory.Count + "] items in your bag:"
             };
 
-            foreach (KeyValuePair<IItem, int> droppable in shortInventory)
+            foreach (KeyValuePair<Item, int> droppable in shortInventory)
             {
-                string line = droppable.Key.GetFormalName();
+                string line = droppable.Key.Name;
                 if (droppable.Value > 1)
                     line += " x" + droppable.Value.ToString();
                 itemsByCount.Add(line);

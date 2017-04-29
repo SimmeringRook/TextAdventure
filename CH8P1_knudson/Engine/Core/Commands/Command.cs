@@ -4,9 +4,9 @@ namespace Engine.Core.Commands
 {
     public abstract class Command : ICommandable
     {
-        protected IAttackable player;
+        protected Player player;
 
-        public Command(IAttackable player)
+        public Command(Player player)
         {
             this.player = player;
         }
