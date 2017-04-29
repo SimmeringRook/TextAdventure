@@ -5,13 +5,14 @@ using System.Collections.Generic;
 
 namespace Engine.Core.Creatures
 {
+    //TODO remove all refences to this
     public class Player : Creature
     {
         public int Score { get; private set; }
         public Room CurrentRoom { get; private set; }
         public List<IItem> Inventory;
         public Dictionary<EquipmentSlot, Item> Equipment { get; private set; }
-        public Player(int maxHP, string name, Dice damageDice) : base(maxHP, name, damageDice)
+        public Player(int maxHP, string name, Dice damageDice) : base(name)
         {
             Inventory = new List<IItem>();
             Equipment = new Dictionary<EquipmentSlot, Item>()

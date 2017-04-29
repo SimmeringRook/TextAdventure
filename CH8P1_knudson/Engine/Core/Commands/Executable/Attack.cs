@@ -1,13 +1,14 @@
 ﻿using Engine.Core.Combat;
 using Engine.Core.Creatures;
+using Engine.Core.Creatures.Enemies;
 using System.Collections.Generic;
 
 namespace Engine.Core.Commands.Executable
 {
     public class Attack : Command
     {
-        private Monster currentTarget = null;
-        public Attack(Player player, string targetName) : base(player)
+        private IAttackable currentTarget = null;
+        public Attack(IAttackable player, string targetName) : base(player)
         {
             if (!string.IsNullOrWhiteSpace(targetName))
                 GetMonsterInRoomByName(targetName);
@@ -16,41 +17,48 @@ namespace Engine.Core.Commands.Executable
         public override CommandResult Execute()
         {
             List<CombatResult> combatResults = new List<CombatResult>();
-
+            
             if (currentTarget == null)
                 GetNextAliveMonsterInRoom(out currentTarget);
 
-            while (player.IsAlive() && currentTarget.IsAlive())
-            {
-                combatResults.Add(player.Attack(currentTarget));
-                if (currentTarget.IsAlive())
-                    combatResults.Add(currentTarget.Attack(player));
-                else
-                    player.AwardPoints(currentTarget.PointValue);
-            }
+            IAttackable goesFirst = (currentTarget.Speed < player.Speed) ? currentTarget : player;
+            IAttackable goesNext = (currentTarget.Speed >= player.Speed) ? currentTarget : player;
 
+            combatResults.Add(goesFirst.Attack(goesNext));
+            if (goesNext.IsAlive())
+                combatResults.Add(goesNext.Attack(goesFirst));
+
+            if (currentTarget.IsAlive() == false)
+            {
+                int pointsToAward = (currentTarget.GetType() == typeof(Monster)) ? (currentTarget as Monster).PointValue : (currentTarget as EliteMonster).PointValue;
+                (player as Player).AwardPoints(pointsToAward);
+            }
+                
             return new CommandResult(combatResults);
         }
 
         #region Helper Functions
         private void GetMonsterInRoomByName(string name)
         {
-            foreach (Monster monster in player.CurrentRoom.MonstersInRoom)
-                if (monster.Name.ToLower().Equals(name.ToLower()))
-                    currentTarget = monster;
+            foreach (IAttackable monster in (player as Player).CurrentRoom.MonstersInRoom)
+            {
+                Creature monsterAsCreature = monster as Creature;
+                if (monsterAsCreature.Name.ToLower().Equals(name.ToLower()))
+                    currentTarget = monster as IAttackable;
+            }  
         }
 
-        private bool GetNextAliveMonsterInRoom(out Monster aliveMonster)
+        private bool GetNextAliveMonsterInRoom(out IAttackable aliveMonster)
         {
-            bool monstersStillAlive = true;
-            foreach (Monster monster in player.CurrentRoom.MonstersInRoom)
+            foreach (IAttackable monster in (player as Player).CurrentRoom.MonstersInRoom)
             {
                 if (monster.IsAlive())
                 {
                     aliveMonster = monster;
-                    return monstersStillAlive;
+                    return true;
                 }
             }
+
             aliveMonster = null;
             return false;
 

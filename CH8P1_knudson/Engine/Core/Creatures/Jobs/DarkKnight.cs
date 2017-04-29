@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Engine.Core.Combat;
+﻿using Engine.Core.Combat;
 
 namespace Engine.Core.Creatures.Jobs
 {
     public class DarkKnight : Creature, IAttackable
     {
+        public int Score { get; set; }
         #region Stats
         private double _MainStat { get { return Vitality; } } //Allows me to easily tweak modifiers based off the job's main stat
         public double CurrentHP { get; private set; }

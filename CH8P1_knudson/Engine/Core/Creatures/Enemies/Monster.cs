@@ -54,6 +54,8 @@ namespace Engine.Core.Creatures.Enemies
             CurrentHP = MaxHP;   
         }
 
+        public int PointValue { get { return (Level * 10); } }
+
         public CombatResult Attack(IAttackable target)
         {
             CombatResult results = new CombatResult(this as Creature, target as Creature);

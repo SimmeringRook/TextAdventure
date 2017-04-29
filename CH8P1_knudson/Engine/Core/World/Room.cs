@@ -7,7 +7,7 @@ namespace Engine.Core.World
     public class Room
     {
         public string Description { get; private set; }
-        public List<Monster> MonstersInRoom { get; private set; }
+        public List<IAttackable> MonstersInRoom { get; private set; }
         private Dictionary<Direction, Room> neighbors { get; set; }
         public List<IItem> LootInRoom { get; private set; }
         public Room()

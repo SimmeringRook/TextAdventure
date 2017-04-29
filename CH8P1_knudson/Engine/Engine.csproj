@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Combat\CombatMap.cs" />
     <Compile Include="Core\Combat\CombatResult.cs" />
     <Compile Include="Core\Commands\Command.cs" />
     <Compile Include="Core\Commands\CommandFactory.cs" />
@@ -59,9 +60,11 @@
     <Compile Include="Core\Commands\ICommandable.cs" />
     <Compile Include="Core\Creatures\Creature.cs" />
     <Compile Include="Core\Creatures\Dice.cs" />
+    <Compile Include="Core\Creatures\Enemies\EliteMonster.cs" />
+    <Compile Include="Core\Creatures\Enemies\Monster.cs" />
     <Compile Include="Core\Creatures\IAttackable.cs" />
     <Compile Include="Core\Creatures\IKillable.cs" />
-    <Compile Include="Core\Creatures\Monster.cs" />
+    <Compile Include="Core\Creatures\Jobs\DarkKnight.cs" />
     <Compile Include="Core\Creatures\Player.cs" />
     <Compile Include="Core\IO\IOManager.cs" />
     <Compile Include="Core\Items\Equipable\EquipmentSlot.cs" />

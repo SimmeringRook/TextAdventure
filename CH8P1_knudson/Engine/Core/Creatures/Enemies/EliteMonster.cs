@@ -1,9 +1,4 @@
 ﻿using Engine.Core.Combat;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Engine.Core.Creatures.Enemies
 {
@@ -54,6 +49,7 @@ namespace Engine.Core.Creatures.Enemies
             CurrentHP = MaxHP;
         }
 
+        public int PointValue { get { return (Level * 15); } }
         public CombatResult Attack(IAttackable target)
         {
             CombatResult results = new CombatResult(this as Creature, target as Creature);

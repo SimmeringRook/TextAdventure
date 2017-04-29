@@ -18,6 +18,7 @@ namespace Engine.Core.Creatures
         #endregion
         CombatResult Attack(IAttackable target);
 
+        bool IsAlive();
         void TakeDamage(double damage);
     }
 }
