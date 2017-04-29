@@ -6,11 +6,11 @@ namespace Engine.Core.Combat
 {
     public class CombatResult
     {
-        private Creature attacker;
-        private Creature defender;
+        private IAttackable attacker;
+        private IAttackable defender;
         public List<string> Log { get; private set; }
 
-        public CombatResult(Creature attacker, Creature defender)
+        public CombatResult(IAttackable attacker, IAttackable defender)
         {
             this.attacker = attacker;
             this.defender = defender;

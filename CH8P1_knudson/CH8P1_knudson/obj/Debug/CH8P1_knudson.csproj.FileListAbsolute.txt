@@ -19,3 +19,6 @@ D:\CSC 253\Repos\CH8P1_knudson\CH8P1_knudson\obj\Debug\CH8P1_knudson.csprojResol
 D:\CSC 253\Repos\CH8P1_knudson\CH8P1_knudson\obj\Debug\CH8P1_knudson.TextAdventure.resources
 D:\CSC 253\Repos\CH8P1_knudson\CH8P1_knudson\obj\Debug\CH8P1_knudson.Properties.Resources.resources
 D:\CSC 253\Repos\CH8P1_knudson\CH8P1_knudson\obj\Debug\CH8P1_knudson.csproj.GenerateResource.Cache
+C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\CH8P1_knudson\bin\Debug\CH8P1_knudson.exe.config
+C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\CH8P1_knudson\obj\Debug\CH8P1_knudson.exe
+C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\CH8P1_knudson\obj\Debug\CH8P1_knudson.pdb

@@ -2,55 +2,85 @@
 
 namespace Engine.Core.Creatures
 {
-    public class Creature : IKillable, IAttackable
+    public class Creature
     {
-        public int CurrentHP { get; private set; }
-        public int MaxHP { get; private set; }
         public string Name { get; private set; }
-        public Dice DamageDie { get; private set; }
 
-        public Creature(int maxHP, string name, Dice damageDice)
+        //Stats
+        public int Level { get; protected set; }
+
+        //Base Stats
+        protected double BaseMaxHP { get { return (Level * BaseVitality) + 100; } }
+        protected double BaseStrength { get { return (Level * 5) + 10; } }
+        protected double BaseVitality { get { return (Level * 5) + 10; } }
+        protected double BaseDexterity { get { return (Level * 5) + 10; } }
+
+        //Base Combat
+        protected double BaseDamage { get { return (Level * 10); } }
+        protected double BaseSpeed { get { return (Level * 100) / BaseDexterity; } }
+        protected double BaseCritChance { get { return (Level * BaseStrength) / 100; } }
+
+        //Base Defensive
+        protected double BaseEvasion { get { return (Level * BaseDexterity) / 100; } }
+        protected double BaseParry { get { return (Level * BaseDexterity) / 100; } }
+        protected double BaseBlock { get { return (Level * BaseStrength) / 100; } }
+
+        public Creature(string name)
         {
-            CurrentHP = maxHP;
-            MaxHP = maxHP;
             Name = name;
-            DamageDie = damageDice;
+            Level = 1;
         }
 
-        public bool IsAlive()
+        public Creature(string name, int level)
         {
-            return (CurrentHP > 0);
+            Name = name;
+            Level = level;
         }
 
-        public void TakeDamage(int damage)
+        public virtual void LevelUp()
         {
-            CurrentHP -= damage;
+            Level++;
         }
 
-        public CombatResult Attack(Creature target)
+        public virtual bool IsAlive()
         {
-            //Initalize the combat recorder
-            CombatResult results = new CombatResult(this, target);
-            Dice hitDice = new Dice(20);
+            return true;
+        }
 
-            int hitRoll = hitDice.Roll();
-            results.LogHitOrMiss(hitRoll);
+        //public bool IsAlive()
+        //{
+        //    return (CurrentHP > 0);
+        //}
 
-            //If the attacker hit, roll for and deal damage
-            if (hitRoll > 10)
-            {
-                int damage = 0;
-                for (int numberOfDie = 1; numberOfDie <= DamageDie.NumberOfDie; numberOfDie++)
-                {
-                    damage += DamageDie.Roll();
-                }
+        //public void TakeDamage(int damage)
+        //{
+        //    CurrentHP -= damage;
+        //}
 
-                results.LogDamage(damage, DamageDie);
-                target.TakeDamage(damage);
-            }
+        //public CombatResult Attack(Creature target)
+        //{
+        //    //Initalize the combat recorder
+        //    CombatResult results = new CombatResult(this, target);
+        //    Dice hitDice = new Dice(20);
+
+        //    int hitRoll = hitDice.Roll();
+        //    results.LogHitOrMiss(hitRoll);
+
+        //    //If the attacker hit, roll for and deal damage
+        //    if (hitRoll > 10)
+        //    {
+        //        int damage = 0;
+        //        for (int numberOfDie = 1; numberOfDie <= DamageDie.NumberOfDie; numberOfDie++)
+        //        {
+        //            damage += DamageDie.Roll();
+        //        }
+
+        //        results.LogDamage(damage, DamageDie);
+        //        target.TakeDamage(damage);
+        //    }
             
-            //Return the logs for the 'turn' of combat
-            return results;
+        //    //Return the logs for the 'turn' of combat
+        //    return results;
         }
     }
 }

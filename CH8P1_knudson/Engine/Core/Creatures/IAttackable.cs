@@ -2,10 +2,22 @@
 
 namespace Engine.Core.Creatures
 {
-    //TODO: Obsolete?
-    // Set up for dependency injection, but not use in that capacity
+
     public interface IAttackable
     {
-        CombatResult Attack(Creature target);
+        #region Combat Modifiers
+        double Damage { get; }
+        double Speed { get; }
+        double CritChance { get; }
+        #endregion
+
+        #region Defense Modifiers
+        double Evasion { get; }
+        double Parry { get; }
+        double Block { get; }
+        #endregion
+        CombatResult Attack(IAttackable target);
+
+        void TakeDamage(double damage);
     }
 }
