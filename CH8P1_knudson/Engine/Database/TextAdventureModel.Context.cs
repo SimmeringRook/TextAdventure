@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CH8P1_knudson
+namespace Engine.Database
 {
     using System;
     using System.Data.Entity;
@@ -29,6 +29,7 @@ namespace CH8P1_knudson
         public virtual DbSet<Creature_Inventory> Creature_Inventory { get; set; }
         public virtual DbSet<Creatures> Creatures { get; set; }
         public virtual DbSet<CreatureTemplates> CreatureTemplates { get; set; }
+        public virtual DbSet<EquipmentSlot> EquipmentSlot { get; set; }
         public virtual DbSet<Item_Armor> Item_Armor { get; set; }
         public virtual DbSet<Item_Weapon> Item_Weapon { get; set; }
         public virtual DbSet<Items> Items { get; set; }

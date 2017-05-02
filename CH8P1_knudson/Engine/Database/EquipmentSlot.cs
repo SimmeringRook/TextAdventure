@@ -7,28 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CH8P1_knudson
+namespace Engine.Database
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Worlds
+    public partial class EquipmentSlot
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Worlds()
+        public EquipmentSlot()
         {
-            this.Creatures = new HashSet<Creatures>();
-            this.Rooms = new HashSet<Rooms>();
-            this.Creature_Inventory = new HashSet<Creature_Inventory>();
+            this.Item_Armor = new HashSet<Item_Armor>();
+            this.Item_Weapon = new HashSet<Item_Weapon>();
         }
     
-        public int Seed { get; set; }
+        public string Slot { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Creatures> Creatures { get; set; }
+        public virtual ICollection<Item_Armor> Item_Armor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Rooms> Rooms { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Creature_Inventory> Creature_Inventory { get; set; }
+        public virtual ICollection<Item_Weapon> Item_Weapon { get; set; }
     }
 }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Engine.Core.Combat;
+using Engine.Core.Items.Equipable;
+using Engine.Core.Items;
 
 namespace Engine.Core.Creatures.Enemies
 {
@@ -54,7 +52,24 @@ namespace Engine.Core.Creatures.Enemies
             CurrentHP = MaxHP;   
         }
 
-        public int PointValue { get { return (Level * 10); } }
+        internal Monster(string name, string mainStat, Dictionary<Item, int> inventory, Dictionary<EquipmentSlot, IEquipable> equipment) : base(name, inventory, equipment)
+        {
+            switch (mainStat)
+            {
+                case "Strength":
+                    _MainStat = Strength;
+                    break;
+                case "Vitality":
+                    _MainStat = Vitality;
+                    break;
+                case "Dexterity":
+                    _MainStat = Dexterity;
+                    break;
+            }
+            CurrentHP = MaxHP;
+        }
+
+        public int PointValue { get { return (Level * 50); } }
 
         public CombatResult Attack(IAttackable target)
         {

@@ -7,21 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CH8P1_knudson
+namespace Engine.Database
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Creature_Inventory
+    public partial class Item_Armor
     {
-        public int CreatureInstanceID { get; set; }
         public int ItemID { get; set; }
-        public int Quantity { get; set; }
-        public int Seed { get; set; }
-        public int CreatureTemplateID { get; set; }
+        public double EvasionModifer { get; set; }
+        public double BlockModifer { get; set; }
+        public string EquipmentSlot { get; set; }
     
         public virtual Items Items { get; set; }
-        public virtual Worlds Worlds { get; set; }
-        public virtual Creatures Creatures { get; set; }
+        public virtual EquipmentSlot EquipmentSlot1 { get; set; }
     }
 }

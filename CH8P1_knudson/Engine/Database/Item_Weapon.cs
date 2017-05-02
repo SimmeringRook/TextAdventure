@@ -7,25 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CH8P1_knudson
+namespace Engine.Database
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Item_Weapon
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Item_Weapon()
-        {
-            this.Creature_Equipment = new HashSet<Creature_Equipment>();
-        }
-    
         public int ItemID { get; set; }
         public double AttackModifer { get; set; }
         public double ParryModifer { get; set; }
+        public string EquipmentSlot { get; set; }
     
         public virtual Items Items { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Creature_Equipment> Creature_Equipment { get; set; }
+        public virtual EquipmentSlot EquipmentSlot1 { get; set; }
     }
 }

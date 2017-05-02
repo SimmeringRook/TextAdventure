@@ -23,6 +23,11 @@ namespace Engine.Core.Items.Equipable
             IEquipable currentlyEquipped = creature.Equipment[this.EquipmentSlot];
             UnEquip(currentlyEquipped, creature);
             creature.Equipment[this.EquipmentSlot] = this;
+
+            if (creature.Inventory[this as Item] > 1)
+                creature.Inventory[this as Item]--;
+            else
+                creature.Inventory.Remove(this as Item);
         }
 
         public void UnEquip(IEquipable itemToUnEquip, Creature creature)
@@ -30,7 +35,10 @@ namespace Engine.Core.Items.Equipable
             if (itemToUnEquip != null)
             {
                 creature.Equipment[itemToUnEquip.EquipmentSlot] = null;
-                creature.Inventory.Add(itemToUnEquip as Item);
+                if (creature.Inventory.ContainsKey(itemToUnEquip as Item))
+                    creature.Inventory[itemToUnEquip as Item]++;
+                else
+                    creature.Inventory.Add(itemToUnEquip as Item, 1);
             }
         }
     }

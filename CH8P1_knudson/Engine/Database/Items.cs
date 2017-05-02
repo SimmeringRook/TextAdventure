@@ -7,32 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CH8P1_knudson
+namespace Engine.Database
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Creatures
+    public partial class Items
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Creatures()
+        public Items()
         {
+            this.Creature_Equipment = new HashSet<Creature_Equipment>();
             this.Creature_Inventory = new HashSet<Creature_Inventory>();
         }
     
-        public int Seed { get; set; }
-        public int CreatureTemplateID { get; set; }
-        public int CreatureInstanceID { get; set; }
+        public int ItemID { get; set; }
         public string Name { get; set; }
-        public bool IsAlive { get; set; }
-        public int Score { get; set; }
-        public int RoomID { get; set; }
+        public string Description { get; set; }
     
-        public virtual CreatureTemplates CreatureTemplates { get; set; }
-        public virtual Worlds Worlds { get; set; }
-        public virtual Creature_Equipment Creature_Equipment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Creature_Equipment> Creature_Equipment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Creature_Inventory> Creature_Inventory { get; set; }
-        public virtual Rooms Rooms { get; set; }
+        public virtual Item_Armor Item_Armor { get; set; }
+        public virtual Item_Weapon Item_Weapon { get; set; }
     }
 }

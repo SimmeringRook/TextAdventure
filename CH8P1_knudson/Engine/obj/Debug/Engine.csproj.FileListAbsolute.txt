@@ -13,3 +13,10 @@ C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\Engine\bin\Debug\Engi
 C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\Engine\obj\Debug\Engine.csprojResolveAssemblyReference.cache
 C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\Engine\obj\Debug\Engine.dll
 C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\Engine\obj\Debug\Engine.pdb
+C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\Engine\bin\Debug\AdventureDatabase.mdf
+C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\Engine\bin\Debug\AdventureDatabase_log.ldf
+C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\Engine\bin\Debug\Engine.dll.config
+C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\Engine\bin\Debug\EntityFramework.dll
+C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\Engine\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\Engine\bin\Debug\EntityFramework.xml
+C:\Users\Odin\Documents\GitHub\TextAdventure\CH8P1_knudson\Engine\bin\Debug\EntityFramework.SqlServer.xml

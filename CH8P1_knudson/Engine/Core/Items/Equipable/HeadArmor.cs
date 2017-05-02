@@ -6,7 +6,6 @@
         {
             EquipmentSlot = EquipmentSlot.Head;
             EvasionModifier = evasionMod;
-            ParryModifier = parryMod;
             BlockModifier = blockMod;
         }
     }

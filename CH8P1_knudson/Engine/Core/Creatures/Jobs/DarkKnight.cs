@@ -45,11 +45,7 @@ namespace Engine.Core.Creatures.Jobs
         {
             get
             {
-                double parry = 0.0;
-                foreach (var kvp in Equipment)
-                    if (kvp.Value != null)
-                        parry += (kvp.Value as Armor).ParryModifier;
-                return parry;
+                return (Equipment[EquipmentSlot.MainHand] as Weapon).ParryModifier;
             }
         }
         public double Block { get { return JobModifiedStat(BaseBlock, 200) + _BonusBlockFromEquipment; } }

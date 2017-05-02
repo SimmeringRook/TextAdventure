@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CH8P1_knudson
+namespace Engine.Database
 {
     using System;
     using System.Collections.Generic;
@@ -27,8 +27,8 @@ namespace CH8P1_knudson
         public int South { get; set; }
         public int West { get; set; }
     
-        public virtual Worlds Worlds { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Creatures> Creatures { get; set; }
+        public virtual Worlds Worlds { get; set; }
     }
 }

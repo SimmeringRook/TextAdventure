@@ -18,7 +18,12 @@ namespace Engine.Core.Commands.Executable
             if (itemToLoot == null)
                 return new CommandResult("There is no [" + itemToLootName + "] in this room.");
 
-            (player.Job as Creature).Inventory.Add(itemToLoot);
+            var thePlayer = (player.Job as Creature);
+            if (thePlayer.Inventory.ContainsKey(itemToLoot))
+                thePlayer.Inventory[itemToLoot]++;
+            else
+                thePlayer.Inventory.Add(itemToLoot, 1);
+
             player.CurrentRoom.LootInRoom.Remove(itemToLoot);
             return new CommandResult("You pick up the [" + itemToLoot.Name + "]");
         }

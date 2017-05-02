@@ -7,24 +7,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CH8P1_knudson
+namespace Engine.Database
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class CreatureTemplates
+    public partial class Creatures
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CreatureTemplates()
+        public Creatures()
         {
-            this.Creatures = new HashSet<Creatures>();
+            this.Creature_Inventory = new HashSet<Creature_Inventory>();
         }
     
+        public int Seed { get; set; }
         public int CreatureTemplateID { get; set; }
-        public string JobName { get; set; }
+        public int CreatureInstanceID { get; set; }
+        public string Name { get; set; }
+        public bool IsAlive { get; set; }
+        public int Score { get; set; }
+        public int RoomID { get; set; }
     
+        public virtual Creature_Equipment Creature_Equipment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Creatures> Creatures { get; set; }
-        public virtual Jobs Jobs { get; set; }
+        public virtual ICollection<Creature_Inventory> Creature_Inventory { get; set; }
+        public virtual Rooms Rooms { get; set; }
+        public virtual CreatureTemplates CreatureTemplates { get; set; }
+        public virtual Worlds Worlds { get; set; }
     }
 }

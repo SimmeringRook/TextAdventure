@@ -30,15 +30,15 @@ namespace Engine.Core.Creatures
         #endregion
 
         #region Inventory
-        public List<Item> Inventory;
-        public Dictionary<EquipmentSlot, IEquipable> Equipment { get; private set; }
+        public Dictionary<Item, int> Inventory;
+        public Dictionary<EquipmentSlot, IEquipable> Equipment;
         #endregion
-        public Creature(string name, List<Item> inventory = null, Dictionary<EquipmentSlot, IEquipable> equipment = null)
+        public Creature(string name, Dictionary<Item, int> inventory = null, Dictionary<EquipmentSlot, IEquipable> equipment = null)
         {
             Name = name;
             Level = 1;
 
-            Inventory = (inventory != null) ? inventory : new List<Item>();
+            Inventory = (inventory != null) ? inventory : new Dictionary<Item, int>();
             Equipment = (equipment != null) ? equipment : new Dictionary<EquipmentSlot, IEquipable>()
             {
                 { EquipmentSlot.Head, null },

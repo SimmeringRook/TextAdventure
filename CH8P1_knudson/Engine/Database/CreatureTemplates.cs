@@ -7,22 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CH8P1_knudson
+namespace Engine.Database
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Jobs
+    public partial class CreatureTemplates
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Jobs()
+        public CreatureTemplates()
         {
-            this.CreatureTemplates = new HashSet<CreatureTemplates>();
+            this.Creatures = new HashSet<Creatures>();
         }
     
+        public int CreatureTemplateID { get; set; }
         public string JobName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CreatureTemplates> CreatureTemplates { get; set; }
+        public virtual ICollection<Creatures> Creatures { get; set; }
+        public virtual Jobs Jobs { get; set; }
     }
 }
